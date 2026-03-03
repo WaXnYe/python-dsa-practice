@@ -1,0 +1,85 @@
+1. Two Sum
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
+
+Example 1:
+
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+Example 2:
+
+Input: nums = [3,2,4], target = 6
+Output: [1,2]
+Example 3:
+
+Input: nums = [3,3], target = 6
+Output: [0,1]
+
+-------------------------------------------------------------------------------------------------------------------------
+題目理解:
+給定:
+一個整數陣列 nums
+一個整數 target
+
+目標:
+找出"兩個不同位置"的數字，加起來等於target
+回傳它們的"index"
+
+限制:
+不能用同一個元素兩次
+且一定只有一組解
+
+程式碼:
+class Solution:
+    def twosum(self, nums, target):
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                if nums[i] + nums[j] == target:
+                    return [i, j]
+
+詳解:
+1. class Solution:
+-> 為 Leetcode 常見寫法，代表此題的解(solution)
+
+2. def twosum(self, nums, target):
+-> 用於定義此函數, self 代表class自己本身(屬於固定寫法), nums為整數陣列, target為變數
+
+3. for i in range(len(nums)):
+-> len(nums)) 相當於 nums 的長度，例如 nums = [7, 9, 11, 13]，則len(nums)) = 4，所以等同於 for i in range(4): 也就是i=0, i=1, i=2, i=3
+
+4. for j in range(i+1 , len(nums()):
+-> 由於不能使用相同的元素，且避免重複檢查，所以要先將i+1，
+假設i=0:
+range(i + 1, 4)
+= range(1, 4)
+= 1,2,3 也就是 [0, 1] 、 [0, 2] 、 [0, 3]
+假設i=1:
+range(i + 1, 4)
+= range(2, 4)
+= 2,3 也就是 [1, 2] 、 [2, 3]
+如此做法可以避免[1, 0](重複)、[2, 0](重複)、[0, 0](使用自己)
+
+5. if nums[i] + nums[j] == target:
+-> 檢查 nums[i] + nums[j] 是否等於 target
+例如: nums = [2,7,11,15] 、 target = 9
+透過剛剛兩個for迴圈，可以知道在 i = 0(數值2), j = 1(數值7)時，target = 9
+
+6. return [i, j]
+-> 確認有了以後 回傳值 ，且一旦執行return，整段程式便會停止，不會再繼續執行其他迴圈，
+
+
+
+
+
+
+
+
+
+
+
+
+
