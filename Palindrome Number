@@ -1,0 +1,77 @@
+2. Palindrome Number
+Given an integer x, return true if x is a palindrome, and false otherwise.
+
+Example 1:
+
+Input: x = 121
+Output: true
+Explanation: 121 reads as 121 from left to right and from right to left.
+Example 2:
+
+Input: x = -121
+Output: false
+Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+Example 3:
+
+Input: x = 10
+Output: false
+Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+
+
+題目:
+給定一個數字，判斷此數值是否為回文，例如: 121, 1331等
+
+程式碼:
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        s = str(x)
+        if s == s[::-1]:
+            return
+
+詳解:
+class Solution:
+-> 為LeetCode固定寫法，此行後，才會開始撰寫主要程式碼。
+
+def isPalindrome(self, x: int) -> bool:      
+-> 用於定義isPalindrome函式。
+(self, x: int)
+-> self為固定寫法，代表在此class中。
+-> x: int，表示x將以int形式呈現，用於提示不是強制寫法，常用於專業開發，有助於:
+(1)編輯器提示更清楚
+(2)程式更易讀
+(3)靜態分析工具可檢查錯誤
+
+-> bool
+-> 代表此函式會透過布林值(bool)回傳
+
+s = str(x)
+-> 將x轉成字串回傳給s
+
+if s == s[::-1]:
+-> 條件判斷，當s等於s的反轉時，執行此行之後的程式
+[::-1]
+-> 代表反轉，格式為[start:end:step]
+-> start為從哪個元素開始，預設或省略的值為第一位
+-> end為到哪個元素停止，預設或省略為最後一位
+-> step代表給一次要遍歷幾個元素，此範例-1代表要以反轉的方式遍歷
+
+return
+-> 回傳結果
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
