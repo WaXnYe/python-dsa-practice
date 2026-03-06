@@ -1,0 +1,91 @@
+4. Longest Common Prefix
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+ 
+
+Example 1:
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: strs = ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+
+題目:
+在給定的陣列中，前綴詞是否有重複，例如["flower","flow","flight"]，重複的前綴詞為"fl"
+
+程式碼:
+class Solution:
+    def longestCommonPrefix(self, strs: list[str]) -> str:
+        if not strs:
+            return ""
+        prefix = ""
+        for i in range(len(strs[0])):
+            char = strs[0][i]
+            for word in strs:
+                if i >= len(word) or word[i] != char:
+                    return prefix
+            prefix += char
+        return prefix
+# test function    
+if __name__ == "__main__" :
+    sol = Solution()
+    tests = [
+        ["flower", "flow", "flight"],
+        ["dog", "racecar", "car"],
+        ["interview", "internet", "internal"]
+    ]
+
+    for t in tests:
+        print(t, "->", sol.longestCommonPrefix(t))
+
+詳解:
+def longestCommonPrefix(self, strs: list[str]) -> str:
+-> 在此函式中，先宣告strs為一組list，且內容為str型別，而此函式輸出的內容也是str。
+
+if not strs:
+  return ""
+-> 如果 strs 是空的，則輸出""
+
+prefix = ""
+-> 宣告字串prefix，用於呈現相同的前綴詞
+
+for i in range(len(strs[0])):
+-> 假設input:strs = ["flower","flow","flight"]  
+strs[0]代表flower(及strs此list中第一個元素)
+len(strs[0])代表flower的字元長度，即6個元素
+所以，實際上應為for i in range(6):
+
+char = strs[0][i]
+-> 透過list中第一個元素作為依據，寫法為strs[0]，即"flower"，將其拆分為"f","l","o","w","e","r"，
+當strs[0][i = 0]時，char = 'f'
+
+for word in strs:
+-> 接下來針對strs中的字一一進行比較。
+
+if i >= len(word) or word[i] != char:
+  return prefix
+-> 
+i >= len(word) 避免 超出字本身的長度，如超出，則為1。
+word[i] != char 比較 在每一個index中的每一個字是甚麼，如有不同，則為1。
+if i >= len(word) or word[i] != char: 當以上兩者達成其一時。
+return prefix 結束prefix
+
+prefix += char
+-> 如果比較的結果，字元都相同，代表prefix不會結束，則將當前的字元回傳給prefix。
+
+return prefix
+-> 如果for迴圈全部跑完，則也結束prefix
+
+
+
+
+
+
+
+
