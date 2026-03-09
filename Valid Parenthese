@@ -1,0 +1,116 @@
+#Valid Parentheses
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+ 
+
+Example 1:
+Input: s = "()"
+Output: true
+
+Example 2:
+Input: s = "()[]{}"
+Output: true
+
+Example 3:
+Input: s = "(]"
+Output: false
+
+Example 4:
+Input: s = "([])"
+Output: true
+
+Example 5:
+Input: s = "([)]"
+Output: false
+
+題目:
+給定一個字串，該字串中的大，中，小括號，如有對稱，回傳True，反之，則回傳False
+
+程式碼:
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        pairs = {
+            ')': '(',
+            ']': '[',
+            '}': '{'
+        }
+
+        for char in s:
+            if char in pairs:
+                if not stack or stack[-1] != pairs[char]:
+                    return False
+                stack.pop()
+            else:
+                stack.append(char)
+        return len(stack) == 0
+
+#test
+if __name__ == "__main__":
+    sol = Solution()
+    test_case = ["[()]", "(]","()","[(])"]
+
+    for i in test_case:
+        print(f'{i} -> {sol.isValid(i)}')
+
+詳解:
+def isValid(self, s: str) -> bool:
+-> 代表在isValid函數中，有一字串型別的s，且該函式輸出為布林值
+
+stack = []
+-> 建立一個list清單，名叫stack
+
+pairs = {
+            ')': '(',
+            ']': '[',
+            '}': '{'
+        }
+-> 建立一組字典dictionary，用於定義左右括號之間的關係，例如: ) 對應 (
+
+for char in s:
+-> 假設 s = "([])"，則 (1)char = (    
+                      (2)char = [
+                      (3)char = ]
+                      (4)char = )
+
+if char in pairs:
+-> 用於判斷 char 是否為其中一個key，例如在第一次執行時，就是在判斷左括號 "(" 是否為其中一個key，此處明顯不是，所以會執行else區塊。
+
+if not stack or stack[-1] != pairs[char]:
+-> 判斷兩個條件
+(1) stack = [] 是否為空，否則為True
+(2) stack[-1] != pairs[char] 在stack中最後一個元素是否不等於目前char的key值，如果不等於 則為True
+例如: stack = ["[", "("]則stack[-1] = "("
+假設char = "(" ，則pairs[char] = ")"
+
+return False
+-> 回傳False
+
+stack.pop()
+-> 將stack當前的最後一個括號移除。
+例如 stack = ["(", "["]，
+此時如果遇到 "]" 即 配對成功，
+這時會將stack中的 "[" 移除，
+所以stack變成 "("
+
+else:
+  stack.append(char)
+-> 在第81行提到，如果目前char並非是pairs字典的其中一個key值，則將此char加入至stack中。
+
+return len(stack) == 0
+-> 因為94行提到，如果配對成功會將stack中暫存的括號移除，因此如果stack為空，代表所有括號配對成功，則回傳True。
+
+
+
+
+
+
+
+
+
+
