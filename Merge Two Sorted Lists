@@ -1,0 +1,172 @@
+Merge Two Sorted Lists
+
+You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
+
+Return the head of the merged linked list.
+
+Example 1:
+Input: list1 = [1,2,4], list2 = [1,3,4]
+Output: [1,1,2,3,4,4]
+
+Example 2:
+Input: list1 = [], list2 = []
+Output: []
+
+Example 3:
+Input: list1 = [], list2 = [0]
+Output: [0]
+
+題目: 將給定的兩個已排序後的串列，將其合併並由小到大排列後再印出。
+
+程式碼:
+# 定義 Linked List 節點
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def mergeTwoLists(self, list1, list2):
+        dummy = ListNode()
+        current = dummy
+
+        while list1 and list2:
+            if list1.val < list2.val:
+                current.next = list1
+                list1 = list1.next
+            else:
+                current.next = list2
+                list2 = list2.next
+
+            current = current.next
+
+        if list1:
+            current.next = list1
+        else:
+            current.next = list2
+
+        return dummy.next
+
+
+# 將 Python list 轉成 Linked List
+def build_list(arr):
+
+    dummy = ListNode()
+    current = dummy
+
+    for num in arr:
+        current.next = ListNode(num)
+        current = current.next
+
+    return dummy.next
+
+
+# 印出 Linked List
+def print_list(head):
+
+    current = head
+
+    while current:
+        print(current.val, end=" -> ")
+        current = current.next
+
+    print("None")
+
+
+# =========================
+# 測試程式
+# =========================
+
+list1 = build_list([1,2,4])
+list2 = build_list([1,3,4])
+
+print("list1:")
+print_list(list1)
+
+print("list2:")
+print_list(list2)
+
+solution = Solution()
+
+merged = solution.mergeTwoLists(list1, list2)
+
+print("Merged List:")
+print_list(merged)
+
+詳解:
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+-> 用於定義Linked Lists
+
+dummy = ListNode()
+-> 先定義一個虛擬節點dummy
+
+current = dummy
+-> current 為目前的指向點，因此這代表current 目前在 dummy這個虛擬節點，也可以說是起點
+例如 dummy(起點) -> ....
+    current↑
+
+#以下範例為
+list1 = [1, 2, 4], list2 = [1, 3, 4]
+
+while list1 and list2:
+-> 只要list1、list2都還沒走完，就持續比較
+
+if list1.val < list2.val:
+-> 比較list1和list2的值，注意兩者之值如果相同，則為False，將執行else區塊
+例如，list1中的1 和 list2中的1比較，if 1 < 1，結果應為False 
+
+current.next = list1
+-> 將list1節點接到current的後面
+例如，dummy(起點) -> 1
+      current↑    list1↑
+
+list1 = list1.next
+-> list1 則跳轉到下一個值
+例如，[1, 2, 4]，則下一個值為2
+
+else:
+  current.next = list2
+  list2 = list2.next
+-> else區塊也是相同概念
+
+current = current.next
+-> 將current移動到新節點。
+例如: dummy(起點) ->   1
+                  current↑
+
+if list1:
+  current.next = list1
+else:
+  current.next = list2
+-> 將剩餘節點補上
+例如，list1和list2排列的過程中，再倒數第二步時，結果為 1 → 1 → 2 → 3 → 4
+而此時list1 = None，list2 = 4
+當重新運行第119行時，while因list1=None，結束迴圈
+最後則跳到145~148行的此判斷式，因list1是None，所以執行else部分，即list2填至current.next，結果為 1 → 1 → 2 → 3 → 4 -> 4
+                                                                                                            current↑
+return dummy.next
+-> 將結果回傳。
+因最後的結果為
+dummy → 1 → 1 → 2 → 3 → 4 → 4
+而結果只需要 dummy 之後的部分即可，故回傳dummy.next
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
