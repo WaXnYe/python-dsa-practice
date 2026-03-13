@@ -1,0 +1,119 @@
+# Remove Duplicates from Sorted Array
+
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same.
+
+Consider the number of unique elements in nums to be k​​​​​​​​​​​​​​. After removing duplicates, return the number of unique elements k.
+
+The first k elements of nums should contain the unique numbers in sorted order. The remaining elements beyond index k - 1 can be ignored.
+
+Custom Judge:
+
+The judge will test your solution with the following code:
+
+int[] nums = [...]; // Input array
+int[] expectedNums = [...]; // The expected answer with correct length
+
+int k = removeDuplicates(nums); // Calls your implementation
+
+assert k == expectedNums.length;
+for (int i = 0; i < k; i++) {
+    assert nums[i] == expectedNums[i];
+}
+If all assertions pass, then your solution will be accepted.
+
+Example 1:
+Input: nums = [1,1,2]
+Output: 2, nums = [1,2,_]
+Explanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+
+Example 2:
+Input: nums = [0,0,1,1,1,2,2,3,3,4]
+Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+Explanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+
+題目:
+一個已從小到大排列後的array陣列，將其移除重複的字元，並計算其數量，最後結果印出總數以及移除重複字元的陣列。
+
+程式碼:
+class Solution:
+    def removeDuplicates(self, nums: list[int]) -> int:
+        k = 1
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i-1]:
+                nums[k] = nums[i]
+                k += 1
+        return k
+
+# Test
+if __name__ == "__main__":
+    sol = Solution()
+    nums = [0,0,1,1,1,2,2,3,3,4]
+    k = sol.removeDuplicates(nums)
+    print("k =", k)
+    print("nums =", nums[:k])
+
+詳解:
+以下透過nums = [0,0,1,1,1,2,2,3,3,4] 舉例說明，
+我們將透過兩個指標 Two Points 分別對陣列中的變數進行比較並找出重複
+i → 掃描陣列，k → 定義當遇到新元素，其所該放置的位置
+
+def removeDuplicates(self, nums: list[int]) -> int:
+-> 代表在此函式中，輸入會是一個帶有變數且名稱為nums的陣列，輸出則是變數
+
+k = 1
+-> 因為第一個元素一定是 新元素，所以k直接從陣列中的第一個index開始即可，而非 k = 0。
+
+for i in range(1, len(nums)):
+-> 此題 len(nums) = 10，即 i = 1 ~ 10 依序執行迴圈
+
+if nums[i] != nums[i-1]:
+  nums[k] = nums[i]
+  k += 1
+-> 以下根據i的值，將透過step依序說明
+step1 i = 1
+即 if nums[1] != nums[0]: 
+而 nums[1] = 0, nums[0] = 0
+因此 step1 不成立，將跳到 step2
+step2 i = 2
+即 if nums[2] != nums[1]: 
+而 nums[2] = 1, nums[1] = 0  
+因此 step2 成立(也代表遇到新元素)，所以繼續執行if區塊
+nums[k] = nums[i]  其中 k = 1, i = 2 
+代表在陣列中原本是 k = 1(元素為0)的該元素，變成 i = 2(元素為1)此位置的元素，
+原本 [0,0,1,1,1,2,2,3,3,4]
+變成 [0,1,1,1,1,2,2,3,3,4]
+接著 k += 1，所以k = 2
+結束，並跳至 step3
+step3 i = 3
+即 if nums[3] != nums[2]: 
+而 nums[3] = 1, nums[2] = 1
+因此 step3 不成立，將跳到 step4
+step4 i = 4
+即 if nums[4] != nums[3]:
+而 nums[4] = 1, nums[3] = 1
+因此 step4 不成立，將跳到 step5
+step5 i = 5
+即 if nums[5] != nums[4]:
+而 nums[5] = 2, nums[4] = 1
+因此 step5 成立(也代表遇到新元素)，所以繼續執行if區塊
+nums[k] = nums[i]  其中 k = 2, i = 5
+代表在陣列中原本是 k = 2(元素為1)的該元素，變成 i = 2(元素為2)此位置的元素，
+原本 [0,1,1,1,1,2,2,3,3,4]
+變成 [0,1,2,1,1,2,2,3,3,4]
+以此類推
+最後執行到step10 i = 10
+結果為[0,1,2,3,4,_,_,_,_,_]
+k = 5
+
+return k
+回傳k值，此範例為5
+
+
+
+
+
+
+
+
