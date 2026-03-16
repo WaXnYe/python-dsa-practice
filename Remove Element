@@ -1,0 +1,147 @@
+# Remove Element
+
+Given an integer array nums and an integer val, remove all occurrences of val in nums in-place. The order of the elements may be changed. Then return the number of elements in nums which are not equal to val.
+
+Consider the number of elements in nums which are not equal to val be k, to get accepted, you need to do the following things:
+
+Change the array nums such that the first k elements of nums contain the elements which are not equal to val. The remaining elements of nums are not important as well as the size of nums.
+Return k.
+Custom Judge:
+
+The judge will test your solution with the following code:
+
+int[] nums = [...]; // Input array
+int val = ...; // Value to remove
+int[] expectedNums = [...]; // The expected answer with correct length.
+                            // It is sorted with no values equaling val.
+
+int k = removeElement(nums, val); // Calls your implementation
+
+assert k == expectedNums.length;
+sort(nums, 0, k); // Sort the first k elements of nums
+for (int i = 0; i < actualLength; i++) {
+    assert nums[i] == expectedNums[i];
+}
+If all assertions pass, then your solution will be accepted.
+
+
+Example 1:
+Input: nums = [3,2,2,3], val = 3
+Output: 2, nums = [2,2,_,_]
+Explanation: Your function should return k = 2, with the first two elements of nums being 2.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+
+Example 2:
+Input: nums = [0,1,2,2,3,0,4,2], val = 2
+Output: 5, nums = [0,1,4,0,3,_,_,_]
+Explanation: Your function should return k = 5, with the first five elements of nums containing 0, 0, 1, 3, and 4.
+Note that the five elements can be returned in any order.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+
+題目:
+給定一組由變數所組成的陣列，以及一個數值，輸出則會依據給定之數值，將原陣列移除此數值，並重新印出新陣列。
+
+程式碼:
+class Solution:
+    def removeElement(self, nums: list[int], val: int) -> int:
+        k = 0
+        for i in range(0, len(nums)):
+            if nums[i] != val:
+                nums[k] = nums[i]
+                k += 1
+        return k
+
+#Test
+if __name__ == "__main__":
+    sol = Solution()
+    nums = [3,2,2,3]
+    val = 3
+    k = sol.removeElement(nums, val)
+    print("k = ", k)
+    print("nums = ", nums)
+    print("valid elements =", nums[:k])
+
+詳解:
+透過 i, k 兩個指標Two Points去完成
+
+def removeElement(self, nums: list[int], val: int) -> int:
+-> 定義removeElement此函式，輸入為一組陣列，和一個變數，輸出則為變數
+
+k = 0
+-> 會從陣列第一位開始擺放
+
+for i in range(0, len(nums)):
+-> nums陣列的長度為 4， 因此 i = 0 ~ 4，也就是會遍歷全部的元素
+
+if nums[i] != val:
+-> 用於判斷陣列中的元素是否和val相同，如果不相同，則繼續執行以下程式
+
+nums[k] = nums[i]
+-> 將當前元素指定給陣列當前k值的地方
+
+k += 1
+-> k往後跳一個位置，為接下來的元素做預留位置的動作。
+
+return k
+-> for迴圈結束後，即回傳當前k值
+
+舉例:
+nums = [3,2,2,3]
+val = 3
+
+Step1:
+k = 0
+i = 0
+if num[0] != val
+代表 if 3 != 3 
+所以 不成立
+跳過此段，執行下一次迴圈
+
+Step2:
+k = 0
+i = 1
+if num[1] != val
+代表 if 2 != 3
+所以 成立
+繼續執行程式
+nums[k] = nums[i]
+代表 nums[0] = nums[1]
+所以 nums = [2,2,2,3]
+最後 k+1, 所以 k = 1
+
+Step3:
+k = 1
+i = 2
+if num[2] != val
+代表 if 2 != 3
+所以 成立
+繼續執行程式
+nums[k] = nums[i]
+代表 nums[1] = nums[2]
+所以 nums = [2,2,2,3]
+最後 k+1, 所以 k = 2
+
+Step4:
+k = 1
+i = 3
+if num[3] != val
+代表 if 3 != 3  
+所以 不成立
+因為 i 已遍歷所有元素
+所以結束 for 迴圈
+則 nums = [2,2,2,3]
+
+最後 回傳k值，即 2
+
+在測試程式中
+[:k] 
+代表 只印出陣列的前k位即可
+
+
+
+
+
+
+
+
+
