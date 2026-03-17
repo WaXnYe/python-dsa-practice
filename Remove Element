@@ -62,7 +62,7 @@ if __name__ == "__main__":
     print("valid elements =", nums[:k])
 
 詳解:
-透過 i, k 兩個指標Two Points去完成
+透過 i, k 兩個指標Two Pointers去完成
 
 def removeElement(self, nums: list[int], val: int) -> int:
 -> 定義removeElement此函式，輸入為一組陣列，和一個變數，輸出則為變數
