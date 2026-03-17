@@ -1,0 +1,112 @@
+# Search Insert Position
+
+Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
+You must write an algorithm with O(log n) runtime complexity.
+
+ 
+
+Example 1:
+
+Input: nums = [1,3,5,6], target = 5
+Output: 2
+Example 2:
+
+Input: nums = [1,3,5,6], target = 2
+Output: 1
+Example 3:
+
+Input: nums = [1,3,5,6], target = 7
+Output: 4
+
+題目:
+給定一個已排序(由小到大)的陣列array，以及目標target，找到該陣列中的目標值之索引index，如果沒有則找到應插入位置的索引值。
+
+程式碼:
+class Solution:
+    def searchInsert(self, nums: list[int], target: int) -> int:
+        left = 0
+        right = len(nums) - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return left
+    
+if __name__ == "__main__":
+    sol = Solution()
+    nums = [1,3,5,6]
+    target = 2
+    k = sol.searchInsert(nums, target)
+    print("result:", k)
+
+詳解:
+此題為Binary Search，具體方法為:
+找出陣列中的中間值，並判斷目標是大於或小於，如此反覆，最後找出陣列中的目標。
+
+以下範例為
+nums = [1,3,5,6]
+target = 2
+
+def searchInsert(self, nums: list[int], target: int) -> int:
+-> 此函數輸入為list和int，輸出為int
+
+left = 0
+right = len(nums) - 1
+-> 定義左邊為0，右邊為len(nums) - 1，此範例為 4 - 1 = 3
+
+while left <= right:
+  mid = (left + right) // 2
+  if nums[mid] == target:
+    return mid
+  elif nums[mid] < target:
+    left = mid + 1
+  else:
+    right = mid - 1
+return left
+
+透過範例講解:
+step1:
+先判斷
+while left <= right:
+即 0 <= 3 (成立)
+mid = (0+3) // 2 = 1
+判斷
+(1)if nums[mid] == target: 
+   if     3     ==    2  :  (不成立)
+(2)elif nums[mid] < target: 
+   elif     3     <    2  : (不成立)
+(3)else: (執行else區塊)
+right = mid - 1
+      =  1  - 1
+right = 0
+
+step2:
+先判斷
+while left <= right:
+即 0 <= 0 (成立)
+mid = (0+0) // 2 = 0
+判斷
+(1)if nums[mid] == target: 
+   if     1     ==    2  :  (不成立)
+(2)elif nums[mid] < target: 
+   elif     1     <    2  : (成立)
+left = mid + 1
+left = 0 + 1 = 1
+
+step3:
+先判斷
+while left <= right:
+即 1 <= 0 (不成立)
+跳出while迴圈，並執行
+return left
+即 index = 1 此位置
+代表沒有找到target，而插入的索引值在此處
+
